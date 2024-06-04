@@ -1,0 +1,82 @@
+﻿
+@{
+    Layout = null;
+}
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoteBook Login</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('/img/Alev.gif') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .card {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .card-body {
+            padding: 40px;
+        }
+
+        .text-light {
+            color: #ffffff !important;
+        }
+
+        .btn-primary {
+            background-color: #ff4500;
+            border-color: #ff4500;
+        }
+
+            .btn-primary:hover {
+                background-color: #ff6347;
+                border-color: #ff6347;
+            }
+
+        .btn {
+            color: white;
+        }
+
+            .btn:hover {
+                color: white;
+            }
+    </style>
+</head>
+<body>
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <h2 class="text-center mb-4 text-light">Giriş Yap</h2>
+            <form method="post">
+                <div class="form-group">
+                    <label for="text" class="text-light">Kullanıcı adı</label>
+                    <input type="text" class="form-control" id="email" placeholder="Kullanıcı adı">
+                </div>
+                <div class="form-group">
+                    <label for="password" class="text-light">Şifre</label>
+                    <input type="password" class="form-control" id="password" placeholder="Şifre">
+                </div>
+                <br />
+                <button type="submit" class="btn btn-primary btn-block">Giriş Yap</button>
+
+            </form>
+        </div>
+    </div>
+</body>
+</html>

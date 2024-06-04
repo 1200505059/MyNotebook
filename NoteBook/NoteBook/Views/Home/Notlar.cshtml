@@ -1,0 +1,112 @@
+﻿@model List<NoteBook.Models.TblNotlar>
+@{
+    ViewData["Title"] = "Notlar";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot Kartları</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .bot-card {
+            margin: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+            border: 3px solid transparent;
+        }
+
+            .bot-card img {
+                border-bottom: 1px solid #ddd;
+                transition: transform 0.3s;
+            }
+
+            .bot-card:hover img {
+                transform: scale(1.1);
+            }
+
+            .bot-card:hover {
+                animation: flameEffect 2s infinite;
+            }
+
+        @@keyframes flameEffect {
+            0% {
+                border-color: rgba(255, 69, 0, 0.5);
+                box-shadow: 0 0 10px rgba(255, 69, 0, 0.5), 0 0 20px rgba(255, 140, 0, 0.5), 0 0 30px rgba(255, 69, 0, 0.5);
+            }
+
+            50% {
+                border-color: rgba(255, 140, 0, 0.8);
+                box-shadow: 0 0 20px rgba(255, 69, 0, 0.8), 0 0 30px rgba(255, 140, 0, 0.8), 0 0 40px rgba(255, 69, 0, 0.8);
+            }
+
+            100% {
+                border-color: rgba(255, 69, 0, 0.5);
+                box-shadow: 0 0 10px rgba(255, 69, 0, 0.5), 0 0 20px rgba(255, 140, 0, 0.5), 0 0 30px rgba(255, 69, 0, 0.5);
+            }
+        }
+
+        .bot-card .btn-chat {
+            width: 48%; /* Butonların genişliğini ayarla */
+        }
+
+        .btn-tumunu-oku {
+            width: 48%;
+            margin-top: 10px;
+        }
+
+        .bot-description {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card bot-card">
+
+                        <div class="card-body text-center">
+                            <h5 class="bot-name">@item.NotTitle</h5>
+                            <hr />
+                            <p class="bot-description">@if (item.NotText.Length > 30)
+                                {
+                                    @item.NotText.Substring(0, 30)<span>...</span>
+                                }
+                                else
+                                {
+                                    @item.NotText
+                                }</p>
+                            <div class="d-flex justify-content-between">
+                                <a href="/Home/NotGuncelle/@item.NotID" class="btn btn-outline-warning btn-chat" >Düzenle</a>
+                                <a href="/Home/NotSil/@item.NotID" class="btn btn-outline-danger btn-chat">Sil</a>
+                            </div>
+                            <br />
+                            <a href="/Home/TumunuOku/@item.NotID" class="btn btn-outline-primary">Tümünü Oku</a>
+
+                        </div>
+                    </div>
+                </div>
+            }
+            
+        </div>
+        <br />
+        <br />
+        <a href="/Home/NotEkle/" class="btn btn-outline-info">NOT EKLE</a>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

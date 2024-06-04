@@ -1,0 +1,55 @@
+﻿@model List<NoteBook.Models.TblAdmin>
+@{
+    ViewData["Title"] = "Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 8px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+
+
+
+    th {
+        font-weight: bold;
+    }
+
+        th i {
+            margin-right: 5px;
+        }
+</style>
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>KULLANICI ADI</th>
+            <th>ŞİFRE</th>           
+            <th>#</th>           
+            <th><i class="fas fa-pencil-alt"></i></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.AdminUserName</td>
+                <td>@item.AdminPassword</td>               
+                <td><a href="/Home/AdminGuncelle/@item.AdminID" class="btn btn-outline-danger">GÜNCELLE</a></td>               
+            </tr>
+        }
+
+    </tbody>
+
+</table>
+
+
+
+

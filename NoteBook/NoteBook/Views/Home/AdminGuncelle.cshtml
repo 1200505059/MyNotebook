@@ -1,0 +1,19 @@
+﻿@model TblAdmin
+@{
+    ViewData["Title"] = "AdminGuncelle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post">
+    <input type="hidden" asp-for="AdminID" />   
+    <div class="form-group">
+        <label asp-for="AdminUserName">KULLANICI ADI</label>
+        <input type="text" class="form-control" asp-for="AdminUserName" required />
+        <label asp-for="AdminPassword">ŞİFRE</label>
+        <input type="text" class="form-control" asp-for="AdminPassword" required />
+       
+        <br />
+        <button type="submit" class="btn btn-outline-danger"> GÜNCELLE</button>
+        <a href="/Home/Admin" class="btn btn-outline-warning">Geri</a>
+    </div>
+</form>

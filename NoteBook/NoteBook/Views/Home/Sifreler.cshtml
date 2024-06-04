@@ -1,0 +1,124 @@
+﻿@model List<NoteBook.Models.TblSifreler>
+@{
+    ViewData["Title"] = "Sifreler";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot Kartları</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .bot-card {
+            margin: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+            border: 3px solid transparent;
+        }
+
+            .bot-card img {
+                border-bottom: 1px solid #ddd;
+                transition: transform 0.3s;
+            }
+
+            .bot-card:hover img {
+                transform: scale(1.1);
+            }
+
+            .bot-card:hover {
+                animation: flameEffect 2s infinite;
+            }
+
+        @@keyframes flameEffect {
+            0% {
+                border-color: rgba(255, 69, 0, 0.5);
+                box-shadow: 0 0 10px rgba(255, 69, 0, 0.5), 0 0 20px rgba(255, 140, 0, 0.5), 0 0 30px rgba(255, 69, 0, 0.5);
+            }
+
+            50% {
+                border-color: rgba(255, 140, 0, 0.8);
+                box-shadow: 0 0 20px rgba(255, 69, 0, 0.8), 0 0 30px rgba(255, 140, 0, 0.8), 0 0 40px rgba(255, 69, 0, 0.8);
+            }
+
+            100% {
+                border-color: rgba(255, 69, 0, 0.5);
+                box-shadow: 0 0 10px rgba(255, 69, 0, 0.5), 0 0 20px rgba(255, 140, 0, 0.5), 0 0 30px rgba(255, 69, 0, 0.5);
+            }
+        }
+
+        .bot-card .btn-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+            .bot-card .btn-group .btn {
+                width: 48%;
+            }
+
+        .bot-card .btn-oku {
+            width: 100%;
+            margin-top: 10px;
+            position: relative;
+        }
+
+        .bot-card .bot-description {
+            transition: color 0.3s;
+        }
+
+        .btn-oku:hover + .bot-description {
+            visibility: visible;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                // Şifre metnini Base64 ile encode edip saklıyoruz.
+                var encodedText = Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(item.SifreText));
+                var decodedText = System.Text.Encoding.UTF8.GetString(Convert.FromBase64String(encodedText));
+
+                <div class="col-md-4">
+                    <div class="card bot-card">
+                        <div class="card-body text-center">
+                            <h5 class="bot-name">@item.SifreTitle</h5>
+                            <hr />
+                            <p class="bot-description" data-hash="@encodedText" data-hash-decoded="@decodedText">****</p>
+                            <div class="btn-group">
+                                <a href="/Home/SifreGuncelle/@item.SifreId" class="btn btn-outline-warning">Düzenle</a>
+                                <a href="/Home/SifreSil/@item.SifreId" class="btn btn-outline-danger">Sil</a>
+                            </div>
+                            <button class="btn btn-outline-primary btn-oku" onmouseover="showPassword(this)" onmouseout="hidePassword(this)">Oku</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div><br />
+    <a href="/Home/SifreEkle/" class="btn btn-outline-success">Yeni Şifre</a>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function showPassword(button) {
+            var cardBody = button.closest('.card-body');
+            var description = cardBody.querySelector('.bot-description');
+            var decodedText = description.getAttribute('data-hash-decoded');
+            description.textContent = decodedText;
+        }
+
+        function hidePassword(button) {
+            var cardBody = button.closest('.card-body');
+            var description = cardBody.querySelector('.bot-description');
+            description.textContent = '****';
+        }
+    </script>
+</body>
+</html>
